@@ -19,7 +19,7 @@
                 <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Sign-in</a></li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="SignOut"/>
+                    <input class="nav-link btn btn-link" type="submit" value="SignOut"/>
                 </form>
                 </li>
             </ul>
