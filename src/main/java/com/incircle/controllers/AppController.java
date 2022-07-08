@@ -1,46 +1,36 @@
 package com.incircle.controllers;
 
-import com.incircle.domain.Role;
+import com.incircle.domain.Contact;
 import com.incircle.domain.User;
-import com.incircle.repo.IUserRepo;
+import com.incircle.repo.IContactRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
 import java.util.Map;
 
 @Controller
 public class AppController {
-
     @Autowired
-    private IUserRepo userRepo;
-
+    private IContactRepo contactRepo;
     @GetMapping("/")
     public String index() {
         return "index";
     }
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @GetMapping("/contacts")
+    public String contacts(@AuthenticationPrincipal User user, Model model){
+        model.addAttribute("contacts", contactRepo.findByUser(user));
+        return "contacts";
     }
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String addUser(User user, Map<String, Object> model) {
-        User userFromDb = userRepo.findByUsername(user.getUsername());
-        if(userFromDb != null) {
-            model.put("message", "User exists");
-            return "register";
-        }
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
-
-        return "redirect:/login";
+    @PostMapping("/contacts")
+    public String addContact(@AuthenticationPrincipal User user, String contactName, String phone, Model model) {
+        Contact contact = new Contact(contactName, phone, user);
+        contactRepo.save(contact);
+        model.addAttribute("contacts", contactRepo.findByUser(user));
+        return "contacts";
     }
 }
