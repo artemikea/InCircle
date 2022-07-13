@@ -26,6 +26,9 @@ public class UserService implements UserDetailsService {
         if (userRepo.findByUsername(user.getUsername()) != null) {
             return Either.left("User " + user.getUsername() + " already exists");
         }
+        if (user.getUsername().length() < 1) {
+            return Either.left("Username shouldn't be empty!");
+        }
         if (user.getPassword().length() < 1) {
             return Either.left("Password shouldn't be empty!");
         }
