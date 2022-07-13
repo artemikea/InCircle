@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<body>
+
+  <th:block th:fragment="flashMessage (msgType, msg)">
+    <div th:class="'alert alert-' + ${msgType} + ' alert-dismissible fade show mt-4 shadow-sm'" role="alert">
+      <p class="m-0" th:text="${msg}"></p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </th:block>
+
+  <div id="flash-messages" th:fragment="flashMessages">
+    <th:block th:if="${message_good}">
+      <div th:replace="blocks/flash :: flashMessage('success', ${message_good})"></div>
+    </th:block>
+    <th:block th:if="${message_bad}">
+      <div th:replace="blocks/flash :: flashMessage('danger', ${message_bad})"></div>
+    </th:block>
+  </div>
+
+</body>
+</html>

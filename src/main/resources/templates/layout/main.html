@@ -10,10 +10,13 @@
 
 <div th:replace="blocks/navbar"></div>
 
+<div class="container">
+    <div th:replace="blocks/flash :: flashMessages"></div>
+</div>
 
 <main class="container" layout:fragment="content">
 
 </main>
-
+ <div th:replace="blocks/scripts :: scripts"></div>
 </body>
 </html>

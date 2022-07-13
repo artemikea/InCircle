@@ -9,7 +9,8 @@
             <div class="col-4">
                 <div class="card text-secondary" style="border-radius: 1rem; background-color: #e3f2fd;">
                     <div class="card-body p-5 text-center">
-                        <form th:action="@{/login}" method="post">
+                        <h6 class="border-bottom pb-2 mb-2">Login form</h6>
+                        <form th:action="@{/login}" method="post" class="my-4">
                             <div class="form-outline mb-4">
                                 <label for="login" class="form-label">Login</label>
                                 <input type="text" class="form-control" id="login" name="username">

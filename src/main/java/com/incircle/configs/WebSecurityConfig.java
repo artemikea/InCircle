@@ -18,9 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                    .antMatchers("/register").not().fullyAuthenticated()
-                    .antMatchers("/", "/webjars/bootstrap/5.0.2/css/bootstrap.min.css", "/img/circle.png").permitAll()
+                .headers()
+                    .cacheControl().disable()
+                .and()
+                    .authorizeRequests()
+                    .antMatchers("/register").anonymous()
+                    .antMatchers("/", "/webjars/bootstrap/5.0.2/css/bootstrap.min.css", "/webjars/bootstrap/js/bootstrap.min.js", "/img/circle.png").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -30,10 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                     .logoutSuccessUrl("/");
+
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }

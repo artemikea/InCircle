@@ -3,6 +3,7 @@ package com.incircle.service;
 import com.incircle.domain.Role;
 import com.incircle.domain.User;
 import com.incircle.repo.IUserRepo;
+import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,15 +22,14 @@ public class UserService implements UserDetailsService {
         return userRepo.findByUsername(username);
     }
 
-    public boolean saveUser(User user) {
-        User userFromDB = userRepo.findByUsername(user.getUsername());
-
-        if (userFromDB != null) {
-            return false;
+    public Either<String, User> saveUser(User user) {
+        if (userRepo.findByUsername(user.getUsername()) != null) {
+            return Either.left("User " + user.getUsername() + " already exists");
         }
-        user.setActive(true);
+        if (user.getPassword().length() < 1) {
+            return Either.left("Password shouldn't be empty!");
+        }
         user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
-        return true;
+        return Either.right(userRepo.save(user));
     }
 }
