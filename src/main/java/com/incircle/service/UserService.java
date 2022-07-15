@@ -5,9 +5,11 @@ import com.incircle.domain.User;
 import com.incircle.repo.IUserRepo;
 import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,6 +18,9 @@ import java.util.Collections;
 public class UserService implements UserDetailsService {
     @Autowired
     private IUserRepo userRepo;
+    @Autowired
+    @Lazy
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,6 +38,8 @@ public class UserService implements UserDetailsService {
             return Either.left("Password shouldn't be empty!");
         }
         user.setRoles(Collections.singleton(Role.USER));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return Either.right(userRepo.save(user));
     }
+
 }
