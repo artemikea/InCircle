@@ -28,15 +28,11 @@ public class UserService implements UserDetailsService {
     }
 
     public Either<String, User> saveUser(User user) {
-        if (userRepo.findByUsername(user.getUsername()) != null) {
+        String login = user.getUsername().toLowerCase();
+        if (userRepo.findByUsername(login) != null) {
             return Either.left("User " + user.getUsername() + " already exists");
         }
-        if (user.getUsername().length() < 1) {
-            return Either.left("Username shouldn't be empty!");
-        }
-        if (user.getPassword().length() < 1) {
-            return Either.left("Password shouldn't be empty!");
-        }
+
         user.setRoles(Collections.singleton(Role.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return Either.right(userRepo.save(user));

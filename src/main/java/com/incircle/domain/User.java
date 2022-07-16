@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -19,8 +21,15 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank(message = "Username can't be empty")
+    @Pattern(regexp = "^[а-яА-ЯёЁa-zA-Z0-9]+$", message = "Username can only contain letters and numbers")
     private String username;
+
+    @NotBlank(message = "Password can't be empty")
+    @Pattern(regexp = "^[а-яА-ЯёЁa-zA-Z0-9]+$", message = "Password can only contain letters and numbers")
     private String password;
+
     private boolean active = true;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

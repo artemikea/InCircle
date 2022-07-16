@@ -19,12 +19,6 @@ public class ContactService {
     }
 
     public Either<String, Contact> saveContact(Contact contact, User user) {
-        if (contact.getName().length() < 1) {
-            return Either.left("Contact Name shouldn't be empty!");
-        }
-        if (contact.getPhone().length() < 1) {
-            return Either.left("Phone shouldn't be empty!");
-        }
         user.addContact(contact);
         return Either.right(contactRepo.save(contact));
     }

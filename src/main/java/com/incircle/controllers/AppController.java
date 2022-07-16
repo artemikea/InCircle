@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 public class AppController {
@@ -37,8 +40,12 @@ public class AppController {
 
     @PostMapping("/contacts/add")
     public String addContactPost(@AuthenticationPrincipal User user,
-                                 @ModelAttribute("newContact") Contact newContact,
+                                 @ModelAttribute("newContact") @Valid Contact newContact,
+                                 BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            return "addContact";
+        }
         Either<String, Contact> accountEither = contactService.saveContact(newContact, user);
         if (accountEither.isLeft()) {
             redirectAttributes.addFlashAttribute("message_bad", accountEither.getLeft());
