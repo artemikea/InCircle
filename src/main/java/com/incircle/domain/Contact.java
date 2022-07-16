@@ -15,7 +15,6 @@ public class Contact {
     private String contactName;
     private String phone;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
     private User user;
 
     public Contact() {

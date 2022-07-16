@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,13 +23,20 @@ public class User implements UserDetails {
     private String password;
     private boolean active = true;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Contact> contacts;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-
     public User() {
+    }
+
+    public void addContact(Contact contact) {
+        contacts.add(contact);
+        contact.setUser(this);
     }
 
     @Override

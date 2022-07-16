@@ -25,24 +25,24 @@ public class AppController {
 
     @GetMapping("/contacts")
     public String contacts(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("contacts", contactService.findByUser(user));
+        model.addAttribute("contacts", contactService.getContacts(user));
         return "contacts";
     }
 
-    @GetMapping("/addContact")
+    @GetMapping("/contacts/add")
     public String addContactGet(Model model) {
         model.addAttribute("newContact", new Contact());
         return "addContact";
     }
 
-    @PostMapping("/addContact")
+    @PostMapping("/contacts/add")
     public String addContactPost(@AuthenticationPrincipal User user,
                                  @ModelAttribute("newContact") Contact newContact,
                                  RedirectAttributes redirectAttributes) {
         Either<String, Contact> accountEither = contactService.saveContact(newContact, user);
         if (accountEither.isLeft()) {
             redirectAttributes.addFlashAttribute("message_bad", accountEither.getLeft());
-            return "redirect:/addContact";
+            return "redirect:/contacts/add";
         } else {
             redirectAttributes.addFlashAttribute("message_good", newContact.getContactName() + " created");
             return "redirect:/contacts";
