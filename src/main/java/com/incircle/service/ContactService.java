@@ -19,7 +19,7 @@ public class ContactService {
     }
 
     public Either<String, Contact> saveContact(Contact contact, User user) {
-        if (contact.getContactName().length() < 1) {
+        if (contact.getName().length() < 1) {
             return Either.left("Contact Name shouldn't be empty!");
         }
         if (contact.getPhone().length() < 1) {

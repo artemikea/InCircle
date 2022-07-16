@@ -12,7 +12,8 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String contactName;
+
+    private String name;
     private String phone;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
@@ -20,8 +21,8 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String contactName, String phone, User user) {
-        this.contactName = contactName;
+    public Contact(String name, String phone, User user) {
+        this.name = name;
         this.phone = phone;
         this.user = user;
     }

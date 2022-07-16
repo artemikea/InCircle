@@ -44,7 +44,7 @@ public class AppController {
             redirectAttributes.addFlashAttribute("message_bad", accountEither.getLeft());
             return "redirect:/contacts/add";
         } else {
-            redirectAttributes.addFlashAttribute("message_good", newContact.getContactName() + " created");
+            redirectAttributes.addFlashAttribute("message_good", newContact.getName() + " created");
             return "redirect:/contacts";
         }
     }
