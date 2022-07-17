@@ -22,12 +22,12 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Username can't be empty")
-    @Pattern(regexp = "^[а-яА-ЯёЁa-zA-Z0-9]+$", message = "Username can only contain letters and numbers")
+    @NotBlank(message = "{username.empty}")
+    @Pattern(regexp = "^[а-яА-ЯёЁa-zA-Z0-9]+$", message = "{username.regexp}")
     private String username;
 
-    @NotBlank(message = "Password can't be empty")
-    @Pattern(regexp = "^[а-яА-ЯёЁa-zA-Z0-9]+$", message = "Password can only contain letters and numbers")
+    @NotBlank(message = "{password.empty}")
+    @Pattern(regexp = "^[а-яА-ЯёЁa-zA-Z0-9]+$", message = "{password.regexp}")
     private String password;
 
     private boolean active = true;

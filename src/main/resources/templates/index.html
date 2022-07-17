@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout/main}">
 <div layout:fragment="content">
     <h1>Краткое описание сервиса</h1>
+    <h1 th:text = "#{welcome.text}"></h1>
 </div>
 </html>
