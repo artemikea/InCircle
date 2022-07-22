@@ -2,6 +2,7 @@ package com.incircle.service;
 
 import com.incircle.domain.Role;
 import com.incircle.domain.User;
+import com.incircle.model.NewAccount;
 import com.incircle.repo.IUserRepo;
 import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,12 @@ public class UserService implements UserDetailsService {
         return userRepo.findByUsername(username);
     }
 
-    public Either<String, User> saveUser(User user) {
-        String login = user.getUsername().toLowerCase();
-        if (userRepo.findByUsername(login) != null) {
-            return Either.left("User " + user.getUsername() + " already exists");
-        }
+    public Either<String, User> saveUser(NewAccount newAccount) {
+        User user = new User();
 
+        user.setUsername(newAccount.getUsername());
         user.setRoles(Collections.singleton(Role.USER));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(newAccount.getPassword()));
         return Either.right(userRepo.save(user));
     }
 

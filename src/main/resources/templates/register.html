@@ -6,7 +6,7 @@
 
     <div class="my-3 p-3 bg-body rounded shadow-sm bs-authreg-container">
         <h6 class="border-bottom pb-2 mb-2">Registration form</h6>
-        <form th:action="@{/register}" th:object="${userForm}" method="post" class="my-4">
+        <form th:action="@{/register}" th:object="${newAccount}" method="post" class="my-4">
             <div class="mb-3">
                 <label for="login" class="form-label">Login</label>
                 <input type="text" class="form-control" id="login" name="username">

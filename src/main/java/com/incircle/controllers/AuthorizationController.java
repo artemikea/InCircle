@@ -1,7 +1,9 @@
 package com.incircle.controllers;
 
 import com.incircle.domain.User;
+import com.incircle.model.NewAccount;
 import com.incircle.service.UserService;
+import com.incircle.validator.NewAccountValidator;
 import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import javax.validation.Valid;
 @Controller
 public class AuthorizationController {
     @Autowired
+    private NewAccountValidator newAccountValidator;
+    @Autowired
     private UserService userService;
 
     @GetMapping("/login")
@@ -26,24 +30,24 @@ public class AuthorizationController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("newAccount", new NewAccount());
         return "register";
     }
 
     @PostMapping("/register")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm,
-                          BindingResult bindingResult,
-                          Model model,
-                          RedirectAttributes redirectAttributes) {
+    public String addUser(Model model, RedirectAttributes redirectAttributes,
+                          @ModelAttribute("newAccount") @Valid NewAccount newAccount,
+                          BindingResult bindingResult) {
+        newAccountValidator.validate(newAccount, bindingResult);
         if(bindingResult.hasErrors()){
             return "register";
         }
-        Either<String, User> accountEither = userService.saveUser(userForm);
+        Either<String, User> accountEither = userService.saveUser(newAccount);
         if (accountEither.isLeft()) {
             redirectAttributes.addFlashAttribute("message_bad", accountEither.getLeft());
             return "redirect:/register";
         } else {
-            redirectAttributes.addFlashAttribute("message_good", userForm.getUsername() + " created");
+            redirectAttributes.addFlashAttribute("message_good", newAccount.getUsername() + " created");
             return "redirect:/login";
         }
     }
