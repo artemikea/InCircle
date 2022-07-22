@@ -4,31 +4,24 @@
       layout:decorate="~{layout/main}">
 <div layout:fragment="content">
 
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-4">
-                <div class="card text-secondary" style="border-radius: 1rem; background-color: #e3f2fd;">
-                    <div class="card-body p-5 text-center">
-                        <h6 class="border-bottom pb-2 mb-2">Registration form</h6>
-                        <form th:action="@{/register}" th:object="${userForm}" method="post" class="my-4">
-                            <div class="form-outline mb-4">
-                                <label for="login" class="form-label">Login</label>
-                                <input type="text" class="form-control" id="login" name="username">
-                                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label for="pass" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="pass" name="password">
-                                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
-                            </div>
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                            <button type="submit" class="btn btn-secondary">Register</button>
-                        </form>
-                    </div>
-                </div>
+    <div class="my-3 p-3 bg-body rounded shadow-sm bs-authreg-container">
+        <h6 class="border-bottom pb-2 mb-2">Registration form</h6>
+        <form th:action="@{/register}" th:object="${userForm}" method="post" class="my-4">
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" class="form-control" id="login" name="username">
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="pass" class="form-label">Password</label>
+                <input type="password" class="form-control" id="pass" name="password">
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-secondary">Register</button>
+        </form>
     </div>
+
 
 </div>
 </html>
