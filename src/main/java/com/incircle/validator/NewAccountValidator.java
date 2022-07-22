@@ -19,8 +19,8 @@ public class NewAccountValidator extends CommonValidator {
     public void performValidate(Object o, Errors errors) {
         NewAccount newAccount = (NewAccount) o;
         String login = newAccount.getUsername().toLowerCase();
-        if (userRepo.findByUsername(login) != null) {
-            errors.rejectValue("username", "Username exists", "Username exists");
+        if (userRepo.getUserByUsername(login).isPresent()) {
+            errors.rejectValue("username", "Username exists", "Username 11exists");
         }
     }
 }
