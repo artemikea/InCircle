@@ -29,10 +29,6 @@ public class UserService implements UserDetailsService {
         return userRepo.findByUsername(username);
     }
 
-    public Optional<User> getUserByUsername(String username) {
-        return userRepo.getUserByUsername(username);
-    }
-
     public Either<String, User> saveUser(NewAccount newAccount) {
         User user = new User();
 

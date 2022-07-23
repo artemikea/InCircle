@@ -20,7 +20,7 @@ public class NewAccountValidator extends CommonValidator {
         NewAccount newAccount = (NewAccount) o;
         String login = newAccount.getUsername().toLowerCase();
         if (userRepo.getUserByUsername(login).isPresent()) {
-            errors.rejectValue("username", "Username exists", "Username 11exists");
+            errors.rejectValue("username", "Username exists", "Username exists");
         }
     }
 }
