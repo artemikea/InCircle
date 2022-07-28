@@ -37,11 +37,6 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public void addContact(Contact contact) {
-        contacts.add(contact);
-        contact.setUser(this);
-    }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

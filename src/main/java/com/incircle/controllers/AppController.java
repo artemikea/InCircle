@@ -2,6 +2,7 @@ package com.incircle.controllers;
 
 import com.incircle.domain.Contact;
 import com.incircle.domain.User;
+import com.incircle.model.NewContact;
 import com.incircle.service.ContactService;
 import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,13 @@ public class AppController {
 
     @GetMapping("/contacts/add")
     public String addContactGet(Model model) {
-        model.addAttribute("newContact", new Contact());
+        model.addAttribute("newContact", new NewContact());
         return "addContact";
     }
 
     @PostMapping("/contacts/add")
     public String addContactPost(@AuthenticationPrincipal User user,
-                                 @ModelAttribute("newContact") @Valid Contact newContact,
+                                 @ModelAttribute("newContact") @Valid NewContact newContact,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()){

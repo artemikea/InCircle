@@ -2,6 +2,7 @@ package com.incircle.service;
 
 import com.incircle.domain.Contact;
 import com.incircle.domain.User;
+import com.incircle.model.NewContact;
 import com.incircle.repo.IContactRepo;
 import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,13 @@ public class ContactService {
         return user.getContacts();
     }
 
-    public Either<String, Contact> saveContact(Contact contact, User user) {
-        user.addContact(contact);
+    public Either<String, Contact> saveContact(NewContact newContact, User user) {
+        Contact contact = new Contact();
+
+        contact.setName(newContact.getName());
+        contact.setPhone(newContact.getPhone());
+        contact.setUser(user);
+        user.getContacts().add(contact);
         return Either.right(contactRepo.save(contact));
     }
 }
