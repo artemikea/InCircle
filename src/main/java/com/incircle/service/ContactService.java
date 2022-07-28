@@ -16,7 +16,11 @@ public class ContactService {
     private IContactRepo contactRepo;
 
     public List<Contact> getContacts(User user) {
-        return user.getContacts();
+        return contactRepo.findByUser(user);
+    }
+
+    public void deleteContact(Long id) {
+        contactRepo.deleteById(id);
     }
 
     public Either<String, Contact> saveContact(NewContact newContact, User user) {

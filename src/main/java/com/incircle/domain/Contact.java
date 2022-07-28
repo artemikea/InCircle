@@ -2,22 +2,26 @@ package com.incircle.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
 @Entity
+@SQLDelete(sql = "UPDATE contact SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     private String name;
 
     private String phone;
+
+    private boolean deleted;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;

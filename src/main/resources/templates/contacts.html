@@ -12,12 +12,16 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Phone</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="contact : ${contacts}">
                         <td th:text="${contact.name}">Имя</td>
                         <td th:text="${contact.phone}">Телефон</td>
+                        <td>
+                            <a th:href="@{/contacts/delete/{id}(id=${contact.id})}" class="btn btn-secondary">x</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
