@@ -20,6 +20,9 @@
                         <td th:text="${contact.name}">Имя</td>
                         <td th:text="${contact.phone}">Телефон</td>
                         <td>
+                            <a th:href="@{/contacts/{id}(id=${contact.id})}" class="btn btn-secondary">details</a>
+                        </td>
+                        <td>
                             <a th:href="@{/contacts/delete/{id}(id=${contact.id})}" class="btn btn-secondary">x</a>
                         </td>
                     </tr>

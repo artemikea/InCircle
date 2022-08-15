@@ -40,6 +40,13 @@ public class AppController {
         return "redirect:/contacts";
     }
 
+    @GetMapping("/contacts/{id}")
+    public String details(@PathVariable Long id, Model model) {
+        //contactService.getContactById(id).ifPresent(o -> model.addAttribute("contact", o));
+        model.addAttribute("contact", contactService.getContactById(id).orElse(null));
+        return "details";
+    }
+
     @GetMapping("/contacts/add")
     public String addContactGet(Model model) {
         model.addAttribute("newContact", new NewContact());

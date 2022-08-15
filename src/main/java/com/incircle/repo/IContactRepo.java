@@ -5,6 +5,7 @@ import com.incircle.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IContactRepo extends CrudRepository<Contact, Long> {
     List<Contact> findByUser(User user);

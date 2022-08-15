@@ -6,6 +6,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +26,9 @@ public class Contact {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
+    @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
+    private List<Notification> notifications;
 
     public Contact() {
     }

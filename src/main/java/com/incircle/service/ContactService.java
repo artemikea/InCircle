@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContactService {
@@ -17,6 +18,10 @@ public class ContactService {
 
     public List<Contact> getContacts(User user) {
         return contactRepo.findByUser(user);
+    }
+
+    public Optional<Contact> getContactById(Long id) {
+        return contactRepo.findById(id);
     }
 
     public void deleteContact(Long id) {
