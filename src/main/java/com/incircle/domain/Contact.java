@@ -27,8 +27,8 @@ public class Contact {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
-    private List<Notification> notifications;
+//    @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
+//    private List<Notification> notifications;
 
     public Contact() {
     }
