@@ -13,7 +13,7 @@
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
             </div>
             <div class="form-outline mb-4">
-                <label for="phone" class="form-label">Phone</label>
+                <label for="phone" class="form-label">Phone format: +7 xxx xxx xx xx:</label>
                 <input type="text" class="form-control" id="phone" name="phone">
                 <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone error</div>
             </div>
