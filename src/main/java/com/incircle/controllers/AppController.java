@@ -9,6 +9,7 @@ import com.incircle.service.ContactService;
 import com.incircle.service.NotificationService;
 import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +30,13 @@ public class AppController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    BuildProperties buildProperties;
+
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        buildProperties.getVersion();
+        model.addAttribute("version", buildProperties.getVersion());
         return "index";
     }
 
