@@ -34,9 +34,7 @@ public class AppController {
     BuildProperties buildProperties;
 
     @GetMapping("/")
-    public String index(Model model) {
-        buildProperties.getVersion();
-        model.addAttribute("version", buildProperties.getVersion());
+    public String index() {
         return "index";
     }
 
