@@ -5,20 +5,20 @@
 <div layout:fragment="content">
 
     <div class="my-3 p-3 bg-body rounded shadow-sm bs-authreg-container">
-        <h6 class="border-bottom pb-2 mb-2">Registration form</h6>
+        <h6 th:text = "#{registration.form}" class="border-bottom pb-2 mb-2"></h6>
         <form th:action="@{/register}" th:object="${newAccount}" method="post" class="my-4">
             <div class="mb-3">
-                <label for="login" class="form-label">Login</label>
+                <label th:text = "#{login.form}" for="login" class="form-label"></label>
                 <input type="text" class="form-control" id="login" name="username">
                 <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
             </div>
             <div class="mb-3">
-                <label for="pass" class="form-label">Password</label>
+                <label th:text = "#{password.form}" for="pass" class="form-label"></label>
                 <input type="password" class="form-control" id="pass" name="password">
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
             </div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <button type="submit" class="btn btn-secondary">Register</button>
+            <button th:text = "#{button.register}" type="submit" class="btn btn-secondary">Register</button>
         </form>
     </div>
 
