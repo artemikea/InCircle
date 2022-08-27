@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layout/main}">
 <div layout:fragment="content">
-    <h1>Краткое описание сервиса</h1>
-    <h1 th:text = "#{welcome.text}"></h1>
+
+    <body>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 th:text = "#{welcome.text}" class="fw-light"></h1>
+                <p th:text = "#{description.text}" class="lead text-muted"></p>
+<!--                <p>-->
+<!--                    <a sec:authorize="isAnonymous()" href="/register" class="btn btn-primary my-2">Register</a>-->
+<!--                    <a sec:authorize="isAnonymous()" href="/login" class="btn btn-secondary my-2">Sign-in</a>-->
+<!--                </p>-->
+            </div>
+        </div>
+    </section>
+    </body>
 </div>
 </html>
