@@ -5,19 +5,19 @@
 <div layout:fragment="content">
 
     <div class="my-3 p-3 bg-body rounded shadow-sm bs-authreg-container">
-        <h6 class="border-bottom pb-2 mb-2">Add notification</h6>
+        <h6 th:text = "#{addNotification.button}" class="border-bottom pb-2 mb-2"></h6>
         <form th:action="@{/contacts/details/add/{id}(id=${thisContact.id})}" th:object="${newNotification}" method="post" class="my-4">
             <div class="form-outline mb-4">
-                <label for="text" class="form-label">Text</label>
+                <label th:text = "#{text.table}" for="text" class="form-label"></label>
                 <input type="text" class="form-control" id="text" name="text">
                 <div th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text error</div>
             </div>
             <div class="form-outline mb-4">
-                <label for="date" class="form-label">Date</label>
+                <label th:text = "#{date.table}" for="date" class="form-label"></label>
                 <input type="datetime-local" class="form-control" id="date" name="date" th:field="*{date}">
             </div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <button type="submit" class="btn btn-secondary">Add</button>
+            <button th:text = "#{addNotification.button}" type="submit" class="btn btn-secondary"></button>
         </form>
     </div>
 
