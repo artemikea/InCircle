@@ -24,7 +24,7 @@
                 <li class="nav-item" sec:authorize="isAnonymous()"><a th:text = "#{button.sign-in}" class="nav-link" href="/login"></a></li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" method="post">
-                        <input class="nav-link btn btn-link" type="submit" value="SignOut"/>
+                        <input class="nav-link btn btn-link" type="submit" th:value="#{button.sign-out}"/>
                     </form>
                 </li>
             </ul>
