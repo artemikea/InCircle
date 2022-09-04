@@ -79,7 +79,7 @@ public class AppController {
             redirectAttributes.addFlashAttribute("message_bad", accountEither.getLeft());
             return "redirect:/contacts/add";
         } else {
-            redirectAttributes.addFlashAttribute("message_good", newContact.getName() + " created");
+            redirectAttributes.addFlashAttribute("message_good", newContact.getName() + " вы были успешно зарегестрированы!");
             return "redirect:/contacts";
         }
     }
@@ -105,7 +105,7 @@ public class AppController {
             redirectAttributes.addFlashAttribute("message_bad", accountEither.getLeft());
             return "redirect:/contacts/details/add/{id}";
         } else {
-            redirectAttributes.addFlashAttribute("message_good", newNotification.getText() + " created");
+            redirectAttributes.addFlashAttribute("message_good", "Напоминание " + "\"" + newNotification.getText() + "\"" + " было успешно создано");
             return "redirect:/contacts/{id}";
         }
     }
