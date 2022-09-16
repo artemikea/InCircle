@@ -7,11 +7,8 @@ import com.incircle.model.NewNotification;
 import com.incircle.repo.INotificationRepo;
 import com.incircle.repo.INotifierRepo;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Streamable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -20,7 +17,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class NotificationService {
@@ -34,8 +30,11 @@ public class NotificationService {
     }
 
     @Scheduled(fixedRate = 1000)
-    public void sortNotificationByCurrentDate(@AuthenticationPrincipal User user) {
-        List<Notification> notificationList = getNotifications(user);
+    public void scheduleNotificationByCurrentDate() {
+        Iterable<Notification> notificationList =
+                Streamable
+                        .of(notificationRepo.findAll())
+                        .toList();
         Date currentDate = new Date();
         LocalDateTime currentLocalDateTime =
                 LocalDateTime.ofInstant(currentDate.toInstant(),
@@ -43,9 +42,10 @@ public class NotificationService {
         notificationList.forEach( (notification) -> {
             if (notification.getDate().isAfter(currentLocalDateTime)) {
                 notifierRepo.send(notification.getText());
+            } else {
+                notification.setEnded(true);
+                notificationRepo.save(notification);
             }
-            notification.setEnded(true);
-            notificationRepo.save(notification);
         });
     }
 
