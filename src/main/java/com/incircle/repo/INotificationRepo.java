@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface INotificationRepo extends CrudRepository<Notification, Long> {
     List<Notification> findByUser(User user);
-
+    List<Notification> findNotificationByEndedFalse();
 }

@@ -31,7 +31,6 @@ public class Notification {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-
     public Notification() {
 
     }

@@ -17,5 +17,4 @@ public class NewAccount {
     @NotBlank(message = "{password.empty}")
     @Pattern(regexp = "^[а-яА-ЯёЁa-zA-Z0-9]+$", message = "{password.regexp}")
     private String password;
-
 }
