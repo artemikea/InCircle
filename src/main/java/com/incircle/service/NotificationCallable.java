@@ -25,6 +25,6 @@ public class NotificationCallable implements Callable<List<Notification>> {
         notificationList.forEach( (notification) -> {
             callBack.accept(notification, failedNotifications);
         });
-        return null;
+        return failedNotifications;
     }
 }

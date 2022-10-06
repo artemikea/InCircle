@@ -7,12 +7,12 @@ import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Where(clause = "ended = false")
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +20,17 @@ public class Notification {
 
     private String text;
 
-    private boolean ended;
+    @Column(length = 32, columnDefinition = "varchar(32) default 'NO_FINISHED'")
+    @Enumerated(value = EnumType.STRING)
+    private NotificationType type;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime date;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime lastChanged;
+
+    private Time delay;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Contact contact;
@@ -34,5 +41,4 @@ public class Notification {
     public Notification() {
 
     }
-
 }
